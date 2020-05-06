@@ -9,7 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'angular-material-login-template';
+  title = 'Jwt-Authentification-Angular8';
   autority: boolean;
   mySubscription: any;
 
