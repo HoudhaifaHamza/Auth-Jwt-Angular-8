@@ -1,4 +1,4 @@
-# AngularMaterialLoginTemplate
+# Jwt-Auth
 
 Create login and registration UI (User Interface) template with Angular 8, Angular Flex Layout and Material design UI library.
 
