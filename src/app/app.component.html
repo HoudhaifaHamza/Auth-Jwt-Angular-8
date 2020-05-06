@@ -1,10 +1,28 @@
-<!-- Toolbar -->
-<mat-toolbar color="primary" class="app-header">
-  <div><a href="https://www.positronx.io" target="_blank" class="positronx">PositronX.io</a></div>
-  <span class="nav-tool-items">
-    <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
+<mat-toolbar color="primary">
+  <span class="fill-remaining-space">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item (click)="toHome()">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button mat-menu-item (click)="toProduct()">
+        <mat-icon>shopping_basket</mat-icon>
+        <span>Product</span>
+      </button>
+      <button mat-menu-item *ngIf="autority" (click)="logOut()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
   </span>
+  <span class="fill-remaining-space">{{title}}</span>
 </mat-toolbar>
 
+
+
+
 <router-outlet></router-outlet>
+<ngx-spinner></ngx-spinner>

@@ -1,0 +1,17 @@
+.error-msg {
+  color: red !important;
+}
+
+.invalid-feedback {
+  color: red !important;
+}
+
+.text-info {
+  display: flex !important;
+  justify-content: flex-start !important;
+  margin: auto;
+  cursor: pointer !important;
+  color: green !important;
+  margin-top: 3% !important;
+  font-weight: 500 !important;
+}

@@ -1,36 +1,72 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
   <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>Register</mat-card-title>
-    </mat-card-header>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-card-header>
+        <mat-card-title>Register</mat-card-title>
+      </mat-card-header>
 
-    <form class="example-form">
 
       <mat-card-content>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username">
+          <input matInput placeholder="Username" formControlName="name" [(ngModel)]="user.name"
+            [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
         </mat-form-field>
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email">
+          <input matInput placeholder="Email" formControlName="email" [(ngModel)]="user.email">
         </mat-form-field>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">email is required</div>
+          <div *ngIf="f.email.errors.email">please enter a valid email</div>
+        </div>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password">
+          <input matInput showHideInput id="mysecretpassword" type="password" placeholder="Password"
+            formControlName="password" [(ngModel)]="user.password">
+          <i matSuffix class="material-icons" showHideTrigger="mysecretpassword"
+            [showHideStatus]="{ materialIcon: true, id: 'mysecretpassword' }"></i>
         </mat-form-field>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">password is required</div>
+          <div *ngIf="f.password.errors.minlength">password must contains be at least 6 caracters</div>
+        </div>
+
+        <mat-form-field class="example-full-width">
+          <input matInput showHideInput id="mysecretpassword1" type="password" placeholder="confirm Password"
+            formControlName="confirmPassword">
+          <i matSuffix class="material-icons" showHideTrigger="mysecretpassword1"
+            [showHideStatus]="{ materialIcon: true, id: 'mysecretpassword1' }"></i>
+        </mat-form-field>
+        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+          <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+          <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+        </div>
 
         <mat-form-field class="example-full-width">
           <mat-label>Choose a role...</mat-label>
-          <mat-select [(value)]="selected">
+          <mat-select [(ngModel)]="user.role" formControlName="role">
             <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+          <div *ngIf="f.role.errors.required">role is required</div>
+        </div>
 
       </mat-card-content>
-
+      <div class="col-12 row">
+        <div class="col-6">
+          <p class="text-info" (click)="toSignIn()">Sign In</p>
+        </div>
+        <div class="col-6">
+        </div>
+      </div>
       <button mat-stroked-button color="accent" class="btn-block">Register</button>
-
+      <p *ngIf="failed" style="color: red;">{{failedMessage}}</p>
+      <p *ngIf="success" style="color: red;">{{successMessage}}</p>
     </form>
   </mat-card>
 </div>

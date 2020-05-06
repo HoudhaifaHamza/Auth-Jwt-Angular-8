@@ -1,22 +1,46 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<form [formGroup]="loginForm" (ngSubmit)="toAuthenticate()">
+  <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
     <mat-card class="box">
       <mat-card-header>
         <mat-card-title>Log in</mat-card-title>
       </mat-card-header>
-  
-      <form class="example-form">
-        <mat-card-content>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Username">
-          </mat-form-field>
-  
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Password">
-          </mat-form-field>
-        </mat-card-content>
-        <button mat-stroked-button color="accent" class="btn-block">Log in</button>
-      </form>
+
+
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" formControlName="email" [(ngModel)]="authRequest.email" >
+        </mat-form-field>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">email is required</div>
+          <div *ngIf="f.email.errors.email">please enter a valid email</div>
+        </div>
+
+        <mat-form-field class="example-full-width">
+          <input matInput showHideInput id="mysecretpassword2" type="password" placeholder="Password" formControlName="password" [(ngModel)]="authRequest.password">
+          <i matSuffix class="material-icons" showHideTrigger="mysecretpassword2"
+            [showHideStatus]="{ materialIcon: true, id: 'mysecretpassword2' }"></i>
+        </mat-form-field>
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">password is required</div>
+          <div *ngIf="f.password.errors.minlength">password must contains be at least 6 caracters</div>
+        </div>
+      </mat-card-content>
+      <div class="col-12 row">
+        <div class="col-6">
+          <p class="text-info" (click)="toSignUp()">Sign Up</p>
+        </div>
+        <div class="col-6">
+        </div>
+      </div>
+      <button mat-stroked-button color="accent" class="btn-block">Log in</button>
+      <p *ngIf="failed" style="color: red;">{{failedMessage}}</p>
+
     </mat-card>
-  
+
   </div>
+
+</form>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

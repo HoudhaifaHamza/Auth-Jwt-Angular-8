@@ -1,24 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
 
 /* Routing */
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent } from './app.component';
 
 /* Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 
-/* FormsModule */
+/* Modules */
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-/* Angular Flex Layout */
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 /* Components */
+import { AppComponent } from './app.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ProductsComponent } from './components/products/products.component';
+import { HomeComponent } from './components/home/home.component';
+
+/* Services */
+import { LogInService } from './components/log-in/log-in.service';
+import { RegisterService } from './components/register/register.service';
+import { HttpInterceptorService } from './http-interceptor.service';
+import { AuthGuard } from './auth.guard';
+
 
 
 @NgModule({
@@ -26,8 +36,8 @@ import { RegisterComponent } from './components/register/register.component';
     AppComponent,
     LogInComponent,
     RegisterComponent,
-    RegisterComponent,
-    LogInComponent
+    ProductsComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,9 +46,22 @@ import { RegisterComponent } from './components/register/register.component';
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule,
+    NgxSpinnerModule,
+    ShowHidePasswordModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
+    RegisterService,
+    LogInService,
+    AuthGuard,
+
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
